@@ -77,12 +77,6 @@ client.on("message", async message => {
       message.reply("Você não mencionou um usuário.");
     }
   }
-
-  if (cmd === "vagas") {
-    message.channel.send(
-      `<@${message.author.id}> nunca conseguiria uma vaga ;)`
-    );
-  }
 });
 
 client.login(process.env.TOKEN);
