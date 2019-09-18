@@ -1,12 +1,19 @@
-const { Client, RichEmbed } = require("discord.js");
+const { Client, RichEmbed, Collection } = require("discord.js");
 const { config } = require("dotenv");
 
 const client = new Client({
   disableEveryone: true // bot can't use @everyone
 });
 
+client.commands = new Collection();
+client.aliases = new Collection();
+
 config({
   path: __dirname + "/.env"
+});
+
+["command"].forEach(handler => {
+  require(`./handler/${handler}`)(client);
 });
 
 client.on("ready", () => {
@@ -26,6 +33,8 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return;
+  if (!message.member)
+    message.member = await message.guild.fetchMember(message);
 
   const args = message.content
     .slice(prefix.length)
@@ -33,40 +42,12 @@ client.on("message", async message => {
     .split(/ +/g);
   const cmd = args.shift().toLowerCase();
 
-  if (cmd === "regras") {
-    const roleColor =
-      message.guild.me.displayHexColor === "#000000"
-        ? "#ffffff"
-        : message.guild.me.displayHexColor;
+  if (cmd.length === 0) return;
 
-    const embed = new RichEmbed()
-      .setColor(roleColor)
-      .setAuthor("Regras do servidor:")
-      .addField("É permitido?", "Sim")
-      .addField("É proibido?", "Sim")
-      .addField("Demonstração de afeto?", "PROIBIDO")
-      .setDescription("Pode zoar só não pode ofender.")
-      .setFooter("Criado pelo offtopic Team")
-      .setTimestamp();
+  let command = client.commands.get(cmd);
+  if (!command) command = client.commands.get(client.aliases.get(cmd));
 
-    message.channel.send(embed);
-  }
-
-  if (cmd === "despacito") {
-    try {
-      await message.react("🇩");
-      await message.react("🇪");
-      await message.react("🇸");
-      await message.react("🇵");
-      await message.react("🇦");
-      await message.react("🇨");
-      await message.react("🇮");
-      await message.react("🇹");
-      await message.react("🇴");
-    } catch (error) {
-      console.error("One of the emojis failed to react.");
-    }
-  }
+  if (command) command.run(client, message, args);
 
   if (cmd === "chama") {
     message.channel.send(`CHAMA NO MEU CARALIO, <@${message.author.id}>`);
