@@ -9,7 +9,6 @@ module.exports = {
   run: async (client, message, args) => {
     const msg = await message.channel.send("Tentando tirar foto do shiba...");
     const file = (await snek.get(APIshiba)).body[0];
-    console.log(file);
     if (!file)
       return message.channel.send(
         "É, não deu... Foi rápido de mais! Tente de novo ;("
