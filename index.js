@@ -29,6 +29,34 @@ client.on("ready", () => {
   });
 });
 
+client.on("guildMemberAdd", member => {
+  console.log("User" + member.user.tag + " has joined the server!");
+
+  let roleTopic = "623500833287438376";
+  let roleOff = "623499112939126814";
+  let membersWithRoleTopic = member.guild.roles.get(roleTopic).members;
+  let membersWithRoleOff = member.guild.roles.get(roleOff).members;
+
+  console.log(
+    `Topic: ${membersWithRoleTopic.size} | Off: ${membersWithRoleOff.size}`
+  );
+
+  if (membersWithRoleTopic.size < membersWithRoleOff.size) {
+    const role = member.guild.roles.find("name", "Topic");
+    member.addRole(role);
+  }
+
+  if (membersWithRoleTopic.size > membersWithRoleOff.size) {
+    const role = member.guild.roles.find("name", "Off");
+    member.addRole(role);
+  }
+
+  if (membersWithRoleTopic.size === membersWithRoleOff.size) {
+    const role = member.guild.roles.find("name", "Topic");
+    member.addRole(role);
+  }
+});
+
 client.on("message", async message => {
   const prefix = "!"; // bot prefix
 
