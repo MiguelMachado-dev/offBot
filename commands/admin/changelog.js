@@ -4,7 +4,7 @@ module.exports = {
   category: "admin",
   description: "Create changelog",
   run: async (client, message, args) => {
-    if (message.member.roles.find("name", "botDev")) {
+    if (message.member.roles.find(x => x.name, "botDev")) {
       const change = args.join(" ");
       message.delete().catch(O_o => {});
       const changeEmbed = new RichEmbed()
