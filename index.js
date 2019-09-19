@@ -33,6 +33,16 @@ client.on("message", async message => {
   const prefix = "!"; // bot prefix
 
   if (message.author.bot) return;
+
+  if (message.channel.name === "memes") {
+    try {
+      await message.react("⬆");
+      await message.react("⬇");
+    } catch (error) {
+      console.error("Error");
+    }
+  }
+
   if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return; // check this line
   if (!message.member)
@@ -53,16 +63,6 @@ client.on("message", async message => {
 
   if (cmd === "chama") {
     message.channel.send(`CHAMA NO MEU CARALIO, <@${message.author.id}>`);
-  }
-
-  if (message.channel.id === "624051516038447252") {
-    console.log("message in Memes");
-    try {
-      await message.react("⬆");
-      await message.react("⬇");
-    } catch (error) {
-      console.error("Error");
-    }
   }
 
   if (cmd === "quarentena") {
