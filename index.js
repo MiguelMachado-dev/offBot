@@ -17,7 +17,9 @@ config({
 });
 
 client.on("ready", () => {
-  console.log(`I'm online! My name is ${client.user.username}`);
+  console.log(
+    `${client.user.username} is online on ${client.guilds.size} servers!`
+  );
   client.user.setPresence({
     status: "online",
     game: {
@@ -32,7 +34,7 @@ client.on("message", async message => {
 
   if (message.author.bot) return;
   if (!message.guild) return;
-  if (!message.content.startsWith(prefix)) return;
+  if (!message.content.startsWith(prefix)) return; // check this line
   if (!message.member)
     message.member = await message.guild.fetchMember(message);
 
@@ -51,6 +53,16 @@ client.on("message", async message => {
 
   if (cmd === "chama") {
     message.channel.send(`CHAMA NO MEU CARALIO, <@${message.author.id}>`);
+  }
+
+  if (message.channel.id === "624051516038447252") {
+    console.log("message in Memes");
+    try {
+      await message.react("⬆");
+      await message.react("⬇");
+    } catch (error) {
+      console.error("Error");
+    }
   }
 
   if (cmd === "quarentena") {
