@@ -5,9 +5,7 @@ module.exports = {
   category: "funny",
   description: "Send a random dog media.",
   run: async (client, message, args) => {
-    const msg = await message.channel.send(
-      "Tentando tirar foto do cachorro..."
-    );
+    const msg = await message.channel.send("> Indo pegar a câmera...");
 
     const file = (await snek.get(APIdog)).body.url;
     if (!file)
