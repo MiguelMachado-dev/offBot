@@ -23,8 +23,8 @@ client.on("ready", () => {
   client.user.setPresence({
     status: "online",
     game: {
-      name: "o pessoal se drogando",
-      type: "WATCHING"
+      name: "pérolas aos porcos.",
+      type: "PLAYING"
     }
   });
 });
@@ -41,6 +41,16 @@ client.on("message", async message => {
     } catch (error) {
       console.error("Error");
     }
+  }
+
+  if (message.content.toLowerCase().includes("desligar bot")) {
+    const replies = [
+      "Nao",
+      `Desligar <@${message.author.id}>`,
+      "Ninguem consegue me desativar mais <:evilaugh:623540610338652171>"
+    ];
+    const result = Math.floor(Math.random() * replies.length);
+    message.channel.send(replies[result]);
   }
 
   if (!message.guild) return;
@@ -60,10 +70,6 @@ client.on("message", async message => {
   if (!command) command = client.commands.get(client.aliases.get(cmd));
 
   if (command) command.run(client, message, args);
-
-  if (cmd === "chama") {
-    message.channel.send(`CHAMA NO MEU CARALIO, <@${message.author.id}>`);
-  }
 
   if (cmd === "quarentena") {
     // getting the member mentioned
