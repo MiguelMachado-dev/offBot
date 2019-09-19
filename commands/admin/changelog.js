@@ -11,7 +11,10 @@ module.exports = {
       message.delete().catch(O_o => {});
       const changeEmbed = new RichEmbed()
         .setColor("#FFAA44")
-        .setAuthor("Trench: Changelog and upcoming", `${client.user.avatarURL}`)
+        .setAuthor(
+          "Off-Topic: Changelog and upcoming",
+          `${client.user.avatarURL}`
+        )
         .addField("Changelog:", `${change}`)
         .setFooter("Powered by OffTopic Team")
         .setTimestamp();
