@@ -12,27 +12,32 @@ module.exports = {
     const location = args.slice(0).join(" ");
     const encodedLocation = encodeURI(location);
     const urlParaDescobrirKey = `${APItoGetKey}?apikey=${process.env.WEATHER}&q=${encodedLocation}&language=pt-br`;
-    const keyResult = (await axios.get(urlParaDescobrirKey)).data;
 
-    const LocationKey = keyResult[0].Key;
+    try {
+      const keyResult = (await axios.get(urlParaDescobrirKey)).data;
 
-    const url = `${APIweather}/${LocationKey}?apikey=${process.env.WEATHER}&language=pt-br`;
-    const result = (await axios.get(url)).data;
+      const LocationKey = keyResult[0].Key;
 
-    const roleColor =
-      message.guild.me.displayHexColor === "#000000"
-        ? "#ffffff"
-        : message.guild.me.displayHexColor;
+      const url = `${APIweather}/${LocationKey}?apikey=${process.env.WEATHER}&language=pt-br`;
+      const result = (await axios.get(url)).data;
 
-    const embed = new RichEmbed()
-      .setColor(roleColor)
-      .setAuthor("Tempo:")
-      .setDescription(`${result[0].Link}`)
-      .addField("Tempo", `${result[0].WeatherText}`)
-      .addField("Temperatura", `${result[0].Temperature.Metric.Value}C`)
-      .setFooter("Criado pelo offtopic Team")
-      .setTimestamp();
+      const roleColor =
+        message.guild.me.displayHexColor === "#000000"
+          ? "#ffffff"
+          : message.guild.me.displayHexColor;
 
-    message.channel.send(embed);
+      const embed = new RichEmbed()
+        .setColor(roleColor)
+        .setAuthor("Tempo:")
+        .setDescription(`${result[0].Link}`)
+        .addField("Tempo", `${result[0].WeatherText}`)
+        .addField("Temperatura", `${result[0].Temperature.Metric.Value}C`)
+        .setFooter("Criado pelo offtopic Team")
+        .setTimestamp();
+
+      message.channel.send(embed);
+    } catch (error) {
+      message.channel.send(error.response.data.Message);
+    }
   }
 };
