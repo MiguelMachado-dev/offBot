@@ -29,7 +29,7 @@ module.exports = {
       const embed = new RichEmbed()
         .setColor(roleColor)
         .setAuthor(
-          `AccuWeather: ${location}`,
+          `AccuWeather: ${keyResult[0].LocalizedName}`,
           "https://lh3.googleusercontent.com/iS1JDAsBL9-_dessIjyaqtSfQl80XGVVnMoaNt1s-TzUydIDu4xId8Chjog3e6etA0k",
           `${result[0].Link}`
         )
