@@ -28,10 +28,16 @@ module.exports = {
 
       const embed = new RichEmbed()
         .setColor(roleColor)
-        .setAuthor("Tempo:")
-        .setDescription(`${result[0].Link}`)
+        .setAuthor(
+          `AccuWeather: ${location}`,
+          "https://lh3.googleusercontent.com/iS1JDAsBL9-_dessIjyaqtSfQl80XGVVnMoaNt1s-TzUydIDu4xId8Chjog3e6etA0k",
+          `${result[0].Link}`
+        )
+        .setThumbnail(
+          "https://apidev.accuweather.com/developers/Media/Default/logo//awx-logo-orange.png"
+        )
         .addField("Tempo", `${result[0].WeatherText}`)
-        .addField("Temperatura", `${result[0].Temperature.Metric.Value}C`)
+        .addField("Temperatura", `${result[0].Temperature.Metric.Value} C`)
         .setFooter("Criado pelo offtopic Team")
         .setTimestamp();
 
