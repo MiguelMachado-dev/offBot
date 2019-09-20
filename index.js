@@ -85,7 +85,6 @@ client.on("message", async message => {
     message.channel.send("😠");
   }
 
-  if (message.channel.name !== "comandos-bot") return;
   if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return; // check this line
   if (!message.member)
@@ -102,7 +101,9 @@ client.on("message", async message => {
   let command = client.commands.get(cmd);
   if (!command) command = client.commands.get(client.aliases.get(cmd));
 
-  if (command) command.run(client, message, args);
+  if (message.channel.name === "comandos-bot") {
+    if (command) command.run(client, message, args);
+  }
 
   if (cmd === "quarentena") {
     // getting the member mentioned
