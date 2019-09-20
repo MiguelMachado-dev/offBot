@@ -1,9 +1,9 @@
 const { RichEmbed } = require("discord.js");
 
 module.exports = {
-  name: "rate",
+  name: "boi",
   category: "funny",
-  description: "Send a random dog media.",
+  description: "Send a random boi rate.",
   run: async (client, message, args) => {
     const randomRate = Math.floor(Math.random() * 11);
     const question = args.slice(0).join(" ");
