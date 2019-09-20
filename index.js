@@ -23,8 +23,8 @@ client.on("ready", () => {
   client.user.setPresence({
     status: "online",
     game: {
-      name: "pérolas aos porcos.",
-      type: "PLAYING"
+      name: "as pessoas ficando loucas.",
+      type: "WATCHING"
     }
   });
 });
