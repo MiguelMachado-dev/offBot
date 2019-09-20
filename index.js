@@ -81,6 +81,10 @@ client.on("message", async message => {
     message.channel.send(replies[result]);
   }
 
+  if (message.content.toLowerCase().includes("😠")) {
+    message.channel.send("😠");
+  }
+
   if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return; // check this line
   if (!message.member)
