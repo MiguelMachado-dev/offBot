@@ -11,14 +11,19 @@ module.exports = {
   run: async (client, message, args) => {
     const location = args.slice(0).join(" ");
     const encodedLocation = encodeURI(location);
-    const urlParaDescobrirKey = `${APItoGetKey}?apikey=${process.env.WEATHER}&q=${encodedLocation}&language=pt-br`;
+    const urlParaDescobrirKey = `${APItoGetKey}?apikey=${process.env.WEATHER}&q=${encodedLocation}`;
 
     try {
       const keyResult = (await axios.get(urlParaDescobrirKey)).data;
 
-      const LocationKey = keyResult[0].Key;
+      try {
+        const LocationKey = keyResult[0].Key;
+      } catch (error) {
+        return message.channel.send("Cannot find city");
+      }
 
-      const url = `${APIweather}/${LocationKey}?apikey=${process.env.WEATHER}&language=pt-br`;
+      const LocationKey = keyResult[0].Key;
+      const url = `${APIweather}/${LocationKey}?apikey=${process.env.WEATHER}`;
       const result = (await axios.get(url)).data;
 
       const roleColor =
@@ -43,7 +48,12 @@ module.exports = {
 
       message.channel.send(embed);
     } catch (error) {
-      message.channel.send(error.response.data.Message);
+      console.log(error);
+      if (error === undefined) {
+        message.channel.send("Cannot get undefined value");
+      } else {
+        message.channel.send(error.response.data.Message);
+      }
     }
   }
 };
