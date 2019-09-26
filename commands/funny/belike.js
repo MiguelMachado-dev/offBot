@@ -13,7 +13,7 @@ module.exports = {
     const [name, sex] = args.slice(0);
     const sexLower = sex.toLowerCase();
 
-    if (sexLower !== "m" || sexLower !== "f") {
+    if (!sexLower === "m" || !sexLower === "f") {
       message.reply("Lembre-se: Segundo argumento deve ser M ou F");
     }
 
