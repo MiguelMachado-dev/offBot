@@ -1,4 +1,4 @@
-const { Client, RichEmbed, Collection } = require("discord.js");
+const { Client, Collection } = require("discord.js");
 const { config } = require("dotenv");
 
 const client = new Client({
