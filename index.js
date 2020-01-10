@@ -57,6 +57,16 @@ client.on("guildMemberAdd", member => {
   }
 });
 
+client.on("guildMemberRemove", member => {
+  member.guild.channels
+    .get("623498997449097216")
+    .send(
+      "**" +
+        member.user.username +
+        "**, nao entendeu a syntax do grupo e meteu o pe!"
+    );
+});
+
 client.on("message", async message => {
   const prefix = "!"; // bot prefix
 
