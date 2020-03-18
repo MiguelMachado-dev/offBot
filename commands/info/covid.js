@@ -12,24 +12,27 @@ module.exports = {
 
     const ArrayDePaises = response.data.areas;
 
-    ArrayDePaises.map(pais => {
-      if (pais.id === "brazil") {
-        const embed = new RichEmbed()
-          .setColor("#FFA500")
-          .setDescription("Coronavirus Bing API")
-          .addField("Total confirmado:", `${response.data.totalConfirmed}`)
-          .addField(`${pais.displayName}:`, `${pais.totalConfirmed}`)
-          .addField("Atualizado em:", `${pais.lastUpdated}`)
-          .setFooter("Criado pelo offtopic Team")
-          .setTimestamp();
+    try {
+      ArrayDePaises.map(pais => {
+        if (pais.id === "brazil") {
+          const embed = new RichEmbed()
+            .setColor("#FFA500")
+            .setDescription("Coronavirus Bing API")
+            .addField("Total confirmado:", `${response.data.totalConfirmed}`)
+            .addField(`${pais.displayName}:`, `${pais.totalConfirmed}`)
+            .addField("Atualizado em:", `${pais.lastUpdated}`)
+            .setFooter("Criado pelo offtopic Team")
+            .setTimestamp();
 
-        message.channel.send(embed);
-      } else {
-        message.channel.send(
-          "Nao foi possivel localizar o Brasil na lista. Contate o adm"
-        );
-      }
-    });
+          message.channel.send(embed);
+        }
+      });
+    } catch (error) {
+      message.channel.send(error);
+      message.channel.send(
+        "Nao foi possivel localizar o Brasil na lista. Contate o adm"
+      );
+    }
 
     msg.delete();
   }
