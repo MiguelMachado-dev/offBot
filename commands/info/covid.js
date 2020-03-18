@@ -19,6 +19,8 @@ module.exports = {
           .setDescription("Coronavirus Bing API")
           .addField("Total confirmado:", `${response.data.totalConfirmed}`)
           .addField(`${country.displayName}:`, `${country.totalConfirmed}`)
+          .addField("Mortes totais:", `${country.totalDeaths}`)
+          .addField("Casos recuperados:", `${country.totalRecovered}`)
           .addField("Atualizado em:", `${country.lastUpdated}`)
           .setFooter("Criado pelo offtopic Team")
           .setTimestamp();
