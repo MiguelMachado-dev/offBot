@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const axios = require("axios");
-const API = "https://bing.com/covid/data?IG=77FA7950EEDF463C90224AAC611E9EE8";
+const API = "https://bing.com/covid/data";
 
 module.exports = {
   name: "covid",
@@ -10,18 +10,26 @@ module.exports = {
     const msg = await message.channel.send("> Verificando...");
     const response = await axios.get(API);
 
-    const Brazil = response.data.areas[26];
+    const ArrayDePaises = response.data.areas;
 
-    const embed = new RichEmbed()
-      .setColor("#FFA500")
-      .setDescription("Coronavirus Bing API")
-      .addField("Total confirmado:", `${response.data.totalConfirmed}`)
-      .addField(`${Brazil.displayName}:`, `${Brazil.totalConfirmed}`)
-      .addField("Atualizado em:", `${Brazil.lastUpdated}`)
-      .setFooter("Criado pelo offtopic Team")
-      .setTimestamp();
+    ArrayDePaises.map(pais => {
+      if (pais.id === "brazil") {
+        const embed = new RichEmbed()
+          .setColor("#FFA500")
+          .setDescription("Coronavirus Bing API")
+          .addField("Total confirmado:", `${response.data.totalConfirmed}`)
+          .addField(`${pais.displayName}:`, `${pais.totalConfirmed}`)
+          .addField("Atualizado em:", `${pais.lastUpdated}`)
+          .setFooter("Criado pelo offtopic Team")
+          .setTimestamp();
 
-    message.channel.send(embed);
+        message.channel.send(embed);
+      } else {
+        message.channel.send(
+          "Nao foi possivel localizar o Brasil na lista. Contate o adm"
+        );
+      }
+    });
 
     msg.delete();
   }
