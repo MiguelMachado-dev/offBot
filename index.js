@@ -17,13 +17,15 @@ config({
 });
 
 client.on("ready", () => {
-  console.log(
-    `${client.user.username} is online on ${client.guilds.size} servers!`
-  );
+  const myGuild = client.guilds.get("623498574260338689");
+  const memberCount = myGuild.memberCount;
+  const memberCountChannel = myGuild.channels.get("695060448650854490");
+  memberCountChannel.setName(`Members: ${memberCount}`);
+
   client.user.setPresence({
     status: "online",
     game: {
-      name: "as pessoas ficando loucas.",
+      name: `a galera pegando coronavirus`,
       type: "WATCHING"
     }
   });
@@ -55,6 +57,11 @@ client.on("guildMemberAdd", member => {
     const role = member.guild.roles.find("name", "Topic");
     member.addRole(role);
   }
+
+  const myGuild = client.guilds.get("623498574260338689");
+  const memberCount = myGuild.memberCount;
+  const memberCountChannel = myGuild.channels.get("695060448650854490");
+  memberCountChannel.setName(`Members: ${memberCount}`);
 });
 
 client.on("guildMemberRemove", member => {
@@ -65,6 +72,11 @@ client.on("guildMemberRemove", member => {
         member.user.username +
         "**, nao entendeu a syntax do grupo e meteu o pe!"
     );
+
+  const myGuild = client.guilds.get("623498574260338689");
+  const memberCount = myGuild.memberCount;
+  const memberCountChannel = myGuild.channels.get("695060448650854490");
+  memberCountChannel.setName(`Members: ${memberCount}`);
 });
 
 client.on("message", async message => {
