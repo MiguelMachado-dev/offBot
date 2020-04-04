@@ -1,7 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const axios = require("axios");
-const API =
-  "https://covid19-server.chrismichael.now.sh/api/v1/ReportsByCountries";
+const API = "https://corona.lmao.ninja/countries";
 
 module.exports = {
   name: "covid",
@@ -22,20 +21,27 @@ module.exports = {
     const finalAPI = `${API}/${countrySelected}`;
     const response = await axios.get(finalAPI);
 
-    const { country, cases, deaths, recovered, flag } = response.data.report;
+    const {
+      country,
+      cases,
+      deaths,
+      recovered,
+      deathsPerOneMillion,
+    } = response.data;
 
     const embed = new RichEmbed()
       .setColor("#FFA500")
-      .setThumbnail(`${flag}`)
-      .setDescription("covid19-server.chrismichael.now.sh API")
+      .setThumbnail(`${response.data.countryInfo.flag}`)
+      .setDescription("corona.lmao.ninja/countries - API")
       .addField(`${country}:`, `${cases}`)
       .addField("Mortes totais:", `${deaths}`)
       .addField("Casos recuperados:", `${recovered}`)
+      .addField("Mortes por milhao:", `${deathsPerOneMillion}`)
       .setFooter("Criado pelo offtopic Team")
       .setTimestamp();
 
     message.channel.send(embed);
 
     msgLoad.delete();
-  }
+  },
 };
