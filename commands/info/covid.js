@@ -27,16 +27,22 @@ module.exports = {
       deaths,
       recovered,
       deathsPerOneMillion,
+      updated,
     } = response.data;
+
+    const newTime = new Date(updated).toUTCString();
 
     const embed = new RichEmbed()
       .setColor("#FFA500")
       .setThumbnail(`${response.data.countryInfo.flag}`)
       .setDescription("corona.lmao.ninja/countries - API")
       .addField(`${country}:`, `${cases}`)
+      .addField('Casos hoje:', `${todayCases}`)
       .addField("Mortes totais:", `${deaths}`)
+      .addField('Casos hoje:', `${todayDeaths}`
       .addField("Casos recuperados:", `${recovered}`)
       .addField("Mortes por milhao:", `${deathsPerOneMillion}`)
+      .addField("Atualizado em:", `${newTime}`)
       .setFooter("Criado pelo offtopic Team")
       .setTimestamp();
 
