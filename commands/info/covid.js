@@ -24,7 +24,9 @@ module.exports = {
     const {
       country,
       cases,
+      todayCases,
       deaths,
+      todayDeaths,
       recovered,
       deathsPerOneMillion,
       updated,
@@ -39,7 +41,7 @@ module.exports = {
       .addField(`${country}:`, `${cases}`)
       .addField("Casos hoje:", `${todayCases}`)
       .addField("Mortes totais:", `${deaths}`)
-      .addField("Casos hoje:", `${todayDeaths}`)
+      .addField("Mortes hoje:", `${todayDeaths}`)
       .addField("Casos recuperados:", `${recovered}`)
       .addField("Mortes por milhao:", `${deathsPerOneMillion}`)
       .addField("Atualizado em:", `${newTime}`)
