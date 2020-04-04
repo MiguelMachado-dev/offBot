@@ -37,9 +37,9 @@ module.exports = {
       .setThumbnail(`${response.data.countryInfo.flag}`)
       .setDescription("corona.lmao.ninja/countries - API")
       .addField(`${country}:`, `${cases}`)
-      .addField('Casos hoje:', `${todayCases}`)
+      .addField("Casos hoje:", `${todayCases}`)
       .addField("Mortes totais:", `${deaths}`)
-      .addField('Casos hoje:', `${todayDeaths}`
+      .addField("Casos hoje:", `${todayDeaths}`)
       .addField("Casos recuperados:", `${recovered}`)
       .addField("Mortes por milhao:", `${deathsPerOneMillion}`)
       .addField("Atualizado em:", `${newTime}`)
